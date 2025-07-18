@@ -1,1 +1,59 @@
 
+1. Emp, Dept 테이블로 구성된 회사 사원에 관한 데이터베이스를 만들고자 한다. 
+    - 테이블을 생성 하고 데이터를 입력하는 SQL 문을 작성하시오.
+    - 이미 만들어진 madangdb와 중복되지 않도록 exam이라는 데이터베이스를 만들어 작성한다. 사용자는 madang으로 한다.
+    
+
+(1) 부서(department)에 관한 Dept 테이블은 deptno(부서번호), dname(부서이름), loc(부서위치, location)으로 구성되어 있다.  Dept 테이블을 생성해 보자.
+create table dept (
+    -> deprno int not null primary key,
+    -> dname varchar(14),
+    -> loc varchar(13));
+
+
+(2) 사원(employee)에 관한 Emp 테이블은 empno(사원번호), ename(사원이름), job(업무), mgr(직속상사번호, manager), hiredate(고용날짜), sal(월급여, salary), comm(판매수당, commission), deptno(부서번호)로 구성되어 있다. Emp의 deptno는 Dept의 deptno를 참조하는 외래키로 지정한다. Emp 테이블을 생성하는 SQL 문을 작성해 보자.
+create table emp(
+    -> empno int not null primary key,
+    -> ename varchar(10)
+    -> ,job varchar(9),
+    -> mgr int,
+    -> hiredate date,
+    -> sal int,
+    -> comm int,
+    -> deptno int );
+
+
+(3) 부서에 관한 다음 네 개의 데이터를 삽입하시오. 
+insert into dept(deptno,dname,loc)
+    -> values(10,'accounting','new york'),
+    -> (20,'research','dallas'),
+    -> (30,'sales','chicago'),
+    -> (40,'operations','boston');
+
+
+(4) 사원에 관한 다음 네 개의 데이터를 삽입하시오.
+
+ insert into emp (empno,ename,job,mgr,hiredate,sal,comm,deptno)
+    -> values(7499,'allen','salesman',7698,'1981-02-20',1600,300,30),
+    -> (7521,'ward','salesman',7698,'1981-02-22',1250,500,30),
+    -> (7566,'jones','manager',7839,'1981-04-22',2975,null,20);
+
+(5) 사원 테이블에 다음 데이터를 삽입하려고 하니 오류가 발생하였다. 오류 메시지를 확인해 보고 원인을 찾아보시오.
+
+```sql
+INSERT INTO Emp(empno, ename, job, mgr, hiredate, sal, comm, deptno) 
+  VALUES (7654, 'MARTIN', 'SALESMAN', 7698, '1981-09-28 00:00:00', 1250, 1400, 50);
+```
+INSERT INTO Emp(empno, ename, job, mgr, hiredate, sal, comm, deptno)
+    ->   VALUES (7654, 'MARTIN', 'SALESMAN', 7698, '1981-09-28 00:00:00', 1250, 1400, 50);
+Query OK, 1 row affected (0.00 sec)
+잘넣어짐 date타입이라 시간단위는 안넣어지는걸 의도한 문제인거같은 짤려서 넣어짐
+
+
+(6) 사원의 이름과 근무지역을 출력하는 다음 질의를 수행해 보시오
+
+select e.ename,d.loc from dept d,emp e where d.deptno=e.deptno;
+
+(7) 부서(Dept) 테이블의 구조를 변경하여 부서장의 이름을 저장하는 managername 속성을 추가하고자 한다. ALTER 문을 사용하여 작성해 보시오. managername 속성이 만들어졌으면 UPDATE 문을 이용하여 manager 이름을 넣어보시오.
+alter table dept add managername varchar(10);
+update dept set managername='사장' where deptno =10;
