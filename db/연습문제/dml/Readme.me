@@ -1,1 +1,23 @@
 
+## 연습문제
+
+- “야구를 부탁해” 도서를 구입한 사람의 이름은 ?
+select c.name,b.bookname
+    -> from book b,customer c, orders o
+    -> where c.custid=o.custid and o.bookid=b.bookid  and b.bookname='야구를 부탁해';
+
+- 추신수가 주문한 날짜는 언제인가?
+select c.name,o.orderdate
+    -> from customer c,orders o
+    -> where c.custid = o.custid and c.name='추신수';
+
+- 박지성이 주문한 책의 제목은 무엇인가?
+ select c.name, b.bookname
+    -> from customer c,orders o,book b
+    -> where c.custid=o.custid and b.bookid=o.bookid and c.name='박지성';
+
+- 각 고객의 주문 건수는(주문하지 않은 사람도 출력)
+select c.name,OUNT(c.name),
+    -> from customer c LEFT OUTER JOIN orders o ON
+    -> c.custid=o.custid
+    -> group by c.name;
