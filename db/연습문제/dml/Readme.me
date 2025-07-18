@@ -17,7 +17,7 @@ select c.name,o.orderdate
     -> where c.custid=o.custid and b.bookid=o.bookid and c.name='박지성';
 
 - 각 고객의 주문 건수는(주문하지 않은 사람도 출력)
-select c.name,OUNT(c.name),
+select c.name,COUNT(o.orderid),
     -> from customer c LEFT OUTER JOIN orders o ON
     -> c.custid=o.custid
     -> group by c.name;
