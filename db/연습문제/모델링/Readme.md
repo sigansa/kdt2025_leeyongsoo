@@ -31,3 +31,4 @@
 주차배정(주차장이름(fk),일련번호)
 
 직원(사원번호(pk),이름,구내전화번호,운전면허증)
+<p><img width="894" height="295" alt="Image" src="https://github.com/user-attachments/assets/b3e24a16-84c7-4346-b8d2-165bd1b26fa8" /></p>
